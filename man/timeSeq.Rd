@@ -1,11 +1,11 @@
 \name{timeSeq}
 \alias{timeSeq}
-\title{Non-parallel Differential Expression Genes Detection}
+\title{Statistical Inference for Time Course RNA-Seq Data using a Negative Binomial Mixed-Effects Model}
 \description{
 Accurately identifying differentially expressed (DE)
 genes from time course RNA-seq data has been of tremendous
 significance in creating a global picture of cellular function. DE
-genes from time course RNA-seq data can be classified into two
+genes from the time course RNA-seq data can be classified into two
 types, parallel DE genes (PDE) and non-parallel DE (NPDE) genes.
 The former are often biologically irrelevant, whereas the latter are often
 biologically interesting. In this package, we propose a negative binomial
@@ -18,18 +18,18 @@ gene.length = NULL, exon.level = TRUE, gene.level = FALSE, p.values = FALSE,
 n_cores = NULL, iterations = 10, offset = TRUE)
 }
 \arguments{
-\item{data}{N by p matrix of expression values, one observation per row with p time points.}
-\item{group.label}{Vector indicating the experimental group of each time point.}
-\item{gene.names}{Vector including all the gene names.}
-\item{reads}{Library size.}
-\item{exon.length}{Vector containing the length exons, only used in exon level data.}
-\item{gene.length}{Vector containing the length genes, only used in gene level data.}
-\item{exon.level}{Indicating if this is an exon level dataset. Default is TRUE.}
-\item{gene.level}{Indicating if this is a gene level dataset. Default is FALSE.}
-\item{p.values}{Indicating whether caculating p values. Default is FALSE.}
-\item{n_cores}{Number of cores used to do parallel computing.}
-\item{iterations}{Number of permutations for significance testing. Default 10. It  must be a positive integer greater than 1.}
-\item{offset}{If effective library size can be used as offset.}
+\item{data}{a n by p matrix of expression values.}
+\item{group.label}{a vector indicating the experimental conditions of each time point.}
+\item{gene.names}{a vector containing all the gene names.}
+\item{reads}{library size.}
+\item{exon.length}{a vector containing the length of exons, only used in exon level data.}
+\item{gene.length}{a vector containing the length of genes, only used in gene level data.}
+\item{exon.level}{logical:indicating if this is an exon level dataset. Default is TRUE.}
+\item{gene.level}{logical:indicating if this is a gene level dataset. Default is FALSE.}
+\item{p.values}{logical: indicating whether p values should be calculated. Default is FALSE.}
+\item{n_cores}{the number of cores used to do parallel computing.}
+\item{iterations}{the number of permutations for significance testing. Default is 10. It  must be a positive integer greater than 1.}
+\item{offset}{logical: should the effective library size be used as offset.}
 }
 
 \details{Nonparallel differential expression(NPDE) genes 
@@ -37,23 +37,23 @@ n_cores = NULL, iterations = 10, offset = TRUE)
 
 \value{
 A list with components
-\item{sorted}{Object returned by NPDE.sort function. It contains sorted Kullback Leibler Ratios(KLRs) for identifying DE genes}
-\item{count}{Number of exons for each gene.}
-\item{NPDE.ratio}{NPDE ratios of each gene.}
-\item{PDE.ratio}{PDE ratios of each gene.}
-\item{genenames}{Gene names of each gene.}
-\item{table}{Gene expression values for each gene.}
-\item{data}{Same as the input 'data' matrix.}
-\item{gene.names}{Same as the input 'gene.names' vector.}
-\item{effective.lib.size}{Effective library size estimated by edgeR.}
-\item{exon.length}{Lengths of each exon.}
-\item{group.label}{Same as the input 'group.label' vector.}
-\item{group.length}{Total number of time points.}
-\item{group1.length}{Number of time points of group 1.}
-\item{group2.length}{Number of time points of group 2.}
-\item{exon.level}{Same as the input 'exon.level'.}
-\item{p.values}{Same as the input 'p.values'.}
-\item{pvalue}{P values for detecting DE genes.}
+\item{sorted}{an object returned by NPDE.sort function. It contains sorted Kullback Leibler Ratios(KLRs) for identifying DE genes}
+\item{count}{the number of exons for each gene.}
+\item{NPDE.ratio}{the NPDE ratios.}
+\item{PDE.ratio}{the PDE ratios.}
+\item{genenames}{gene names.}
+\item{table}{gene expression values.}
+\item{data}{a n by p matrix of expression values.}
+\item{gene.names}{a vector including all the gene names.}
+\item{effective.lib.size}{the effective library size estimated by edgeR.}
+\item{exon.length}{length of exons.}
+\item{group.label}{a vector indicating the experimental conditions of each time point.}
+\item{group.length}{the total number of time points.}
+\item{group1.length}{the number of time points of condition one.}
+\item{group2.length}{the number of time points of condition two.}
+\item{exon.level}{logical:indicating if this is an exon level dataset. Default is TRUE.}
+\item{p.values}{logical: indicating whether p values should be calculated. Default is FALSE.}
+\item{pvalue}{p values for detecting DE genes.}
 }
 
 \references{

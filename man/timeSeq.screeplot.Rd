@@ -9,9 +9,9 @@ Plot the scree plot for all genes in the dataset.
 timeSeq.screeplot(timeSeq.obj, type = c("barplot", "lines"))
 }
 \arguments{
-  \item{timeSeq.obj}{Object returned by timeSeq function
+  \item{timeSeq.obj}{an object returned by timeSeq function
 }  
-  \item{type}{What type of plot should be drawn: "barplot" for bar plot and "lines" for line graph.
+  \item{type}{type of plot: "barplot" for bar plot and "lines" for line graph.
 }
 }
 \references{

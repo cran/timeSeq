@@ -1,7 +1,7 @@
 \name{timeSeq.genesetscreeplot}
 \alias{timeSeq.genesetscreeplot}
 \title{
-Scree Plot of Kullback Leibler Distance Ratios for Gene Sets
+Scree Plot of Kullback-Leibler Distance Ratios for Gene Sets
 }
 \description{
 Plot the scree plot for all gene sets in the dataset.
@@ -10,10 +10,10 @@ Plot the scree plot for all gene sets in the dataset.
 timeSeq.genesetscreeplot(timeSeq.geneset)
 }
 \arguments{
-\item{timeSeq.geneset}{Object returned by timeSeq.geneset.}
+\item{timeSeq.geneset}{an object returned by timeSeq.geneset.}
 }
 \value{
-  \item{NPDE.list}{Dataframe for expression values.}
+  \item{NPDE.list}{a dataframe for expression values.}
 }
 \references{
 Chong Gu. Model diagnostics for smoothing spline ANOVA models. Canadian Journal of Statistics, 32(4):347-358, 2004.

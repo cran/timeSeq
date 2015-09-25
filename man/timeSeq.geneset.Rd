@@ -1,10 +1,10 @@
 \name{timeSeq.geneset}
 \alias{timeSeq.geneset}
 \title{
-Non-parallel Differential Expression Gene Set Detection
+Differentially Expressed Gene Sets Detection
 }
 \description{
-Use a negative binomial mixed-effects (NBME) model to identify both PDE and NPDE gene sets in time course RNA-seq data.
+Use a negative binomial mixed-effects (NBME) model to identify both parallel differentially expressed (PDE) and nonparallel differentially expressed (NPDE) gene sets in time course RNA-seq data.
 }
 \usage{
 timeSeq.geneset(data, group.label, genesets, gene.names, 
@@ -13,30 +13,30 @@ timeSeq.geneset(data, group.label, genesets, gene.names,
 	p.values = FALSE, n_cores = NULL, iterations = NULL, offset = TRUE)
 }
 \arguments{
-\item{data}{N by p matrix of expression values, one observation per row with p time points.}
-\item{group.label}{Vector indicating the experimental group of each time point.}
-\item{genesets}{Genes grouping.}
-\item{gene.names}{Vector including all the gene names.}
-\item{geneset.names}{Vector including all the gene set names.}
-\item{reads}{Library size.}
-\item{exon.length}{Vector containing the length exons, only used in exon level data.}
-\item{gene.length}{Vector containing the length genes, only used in gene level data.}
-\item{exon.level}{Indicating if this is an exon level dataset. Default is TRUE.}
-\item{gene.level}{Indicating if this is a gene level dataset. Default is FALSE.}
-\item{p.values}{Indicating whether caculating p values. Default is FALSE.}
-\item{n_cores}{Number of cores used to do parallel computing.}
-\item{iterations}{Number of permutations for significance testing.}
-\item{offset}{If effective library size can be used as offset.}
+\item{data}{a n by p matrix of expression values.}
+\item{group.label}{a vector indicating the experimental conditions of each time point.}
+\item{genesets}{gene set collection.}
+\item{gene.names}{a vector including all the gene names.}
+\item{geneset.names}{a vector including all the gene set names.}
+\item{reads}{library size.}
+\item{exon.length}{a vector containing the length of exons, only used in exon level data.}
+\item{gene.length}{a vector containing the length of genes, only used in gene level data.}
+\item{exon.level}{logical:indicating if this is an exon level dataset. Default is TRUE.}
+\item{gene.level}{logical:indicating if this is a gene level dataset. Default is FALSE.}
+\item{p.values}{logical: indicating whether p values should be calculated. Default is FALSE.}
+\item{n_cores}{the number of cores used to do parallel computing.}
+\item{iterations}{the number of permutations for significance testing.}
+\item{offset}{logical: should the effective library size be used as offset. }
 
 }
 
 \value{
 A list with compoents
-  \item{NPDE.ratio}{Average NPDE ratios of each gene set.}
-  \item{PDE.ratio}{Average PDE ratios of each gene set.}
-  \item{NPDE.pvalue}{P values for detecting NPDE gene sets.}
-  \item{PDE.pvalue}{P values for detecting PDE gene sets.}
-  \item{geneset.names}{Vector of names for gene sets.}
+  \item{NPDE.ratio}{average NPDE ratios of each gene set.}
+  \item{PDE.ratio}{average PDE ratios of each gene set.}
+  \item{NPDE.pvalue}{p values for detecting NPDE gene sets.}
+  \item{PDE.pvalue}{p values for detecting PDE gene sets.}
+  \item{geneset.names}{names of gene sets.}
 }
 
 \references{

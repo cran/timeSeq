@@ -1,7 +1,7 @@
 \name{timeSeq.heatmap}
 \alias{timeSeq.heatmap}
 \title{
-Heatmap of Most Significant NDPE Genes
+Heatmap of the Most Significant NDPE Genes
 }
 \description{
 Plots the heatmap for the significant NDPE genes.
@@ -10,8 +10,8 @@ Plots the heatmap for the significant NDPE genes.
 timeSeq.heatmap(timeSeq.obj, n)
 }
 \arguments{
-\item{timeSeq.obj}{Object returned by timeSeq function}
-\item{n}{Number of the most significant NPDE genes. It must be a positive integer.}
+\item{timeSeq.obj}{an object returned by timeSeq function}
+\item{n}{the number of the most significant NPDE genes. It must be a positive integer.}
 }
 \references{
 Chong Gu. Model diagnostics for smoothing spline ANOVA models. Canadian Journal of Statistics, 32(4):347-358, 2004.
@@ -65,9 +65,9 @@ for(i in 6:10){
 gene.names <- paste("gene", rep(1:10, each=3), sep="")
 group.label <- c(rep(1,8), rep(2,8))
 
-##### Model fitting (If you want to run 'timeSeq' by yourself, just remove the 
+##### Model fitting (If you want to run 'timeSeq' by yourself, just remove the
 ##### "## " from the head of two lines below.)
-## model.fit <- timeSeq(settingC.exon, group.label, gene.names, exon.length=exon_length, 
+## model.fit <- timeSeq(settingC.exon, group.label, gene.names, exon.length=exon_length,
 ##   reads=NULL, n_cores = 2, offset=FALSE)
 
 

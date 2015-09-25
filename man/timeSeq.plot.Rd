@@ -4,14 +4,14 @@
 Display the Significant NDPE Genes
 }
 \description{
-Plot the line graphs of expression values for those significant genes.
+Plot the expression values for the significant genes.
 }
 \usage{
 timeSeq.plot(timeSeq.obj, N)
 }
 \arguments{
-\item{timeSeq.obj}{Object returned by timeSeq function}
-\item{N}{Number of significant NPDE genes you would like to plot. It must be a positive integer and should be no greater than 10.}
+\item{timeSeq.obj}{an object returned by timeSeq function}
+\item{N}{the number of significant NPDE genes you would like to plot. It must be a positive integer and should be no greater than 10.}
 }
 \references{
 Chong Gu. Model diagnostics for smoothing spline ANOVA models. Canadian Journal of Statistics, 32(4):347-358, 2004.
