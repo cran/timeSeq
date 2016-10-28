@@ -13,23 +13,20 @@ mixed-effects (NBME) model to identify both PDE and NPDE genes in
 time course RNA-seq data.
 }
 \usage{
-timeSeq(data, group.label, gene.names, reads = NULL, exon.length = NULL, 
-gene.length = NULL, exon.level = TRUE, gene.level = FALSE, p.values = FALSE, 
-n_cores = NULL, iterations = 10, offset = TRUE)
+timeSeq(data.count, group.label, gene.names, reads = NULL, exon.length = NULL, 
+exon.level = TRUE, n.cores = NULL, offset = TRUE, iterations = 10, p.values=FALSE)
 }
 \arguments{
-\item{data}{a n by p matrix of expression values.}
+\item{data.count}{a n by p matrix of expression values.}
 \item{group.label}{a vector indicating the experimental conditions of each time point.}
 \item{gene.names}{a vector containing all the gene names.}
 \item{reads}{library size.}
 \item{exon.length}{a vector containing the length of exons, only used in exon level data.}
-\item{gene.length}{a vector containing the length of genes, only used in gene level data.}
 \item{exon.level}{logical:indicating if this is an exon level dataset. Default is TRUE.}
-\item{gene.level}{logical:indicating if this is a gene level dataset. Default is FALSE.}
-\item{p.values}{logical: indicating whether p values should be calculated. Default is FALSE.}
-\item{n_cores}{the number of cores used to do parallel computing.}
-\item{iterations}{the number of permutations for significance testing. Default is 10. It  must be a positive integer greater than 1.}
-\item{offset}{logical: should the effective library size be used as offset.}
+\item{n.cores}{the number of cores used to do parallel computing.}
+\item{offset}{logical: should the library size be used as offset.}
+\item{iterations}{the number of iterations times used to compute p values of NPDE genes.}
+\item{p.values}{logical: should the p values be computed.}
 }
 
 \details{Nonparallel differential expression(NPDE) genes 
@@ -52,70 +49,33 @@ A list with components
 \item{group1.length}{the number of time points of condition one.}
 \item{group2.length}{the number of time points of condition two.}
 \item{exon.level}{logical:indicating if this is an exon level dataset. Default is TRUE.}
-\item{p.values}{logical: indicating whether p values should be calculated. Default is FALSE.}
-\item{pvalue}{p values for detecting DE genes.}
 }
 
 \references{
+Sun, Xiaoxiao, David Dalpiaz, Di Wu, Jun S. Liu, Wenxuan Zhong, and Ping Ma. "Statistical inference for time course RNA-Seq data using a negative binomial mixed-effect model." BMC Bioinformatics, 17(1):324, 2016.
+
 Chong Gu. Model diagnostics for smoothing spline ANOVA models. Canadian Journal of Statistics, 32(4):347-358, 2004.
 
 Chong Gu. Smoothing spline ANOVA models. Springer, second edition, 2013.
 
-Chong Gu and Ping Ma. Optimal smoothing in nonparametric mixed-effect models. Annals of Statistics, pages 1357-1379, 2005a.
+Chong Gu and Ping Ma. Optimal smoothing in nonparametric mixed-effect models. Annals of Statistics, 1357-1379, 2005.
 }
 
 
 \author{Fan Gao and Xiaoxiao Sun}
 
 \examples{
-###Data Simulation
-mu.produce.exp <- function(x,exon.sd)
-{exp(10*(1e3*(x^11*(1-x)^6)+100*(x^3*(1-x)^10)) + 5 + exon.sd)}
-ti1 <- c(1:8)/10
-ti2 <- c(8:1)/10
-nu <- 1000
+##Exon level data
+data(pAbp)
+attach(pAbp)
+model.fit <- timeSeq(data.count, group.label, gene.names, reads, exon.length, n.cores = 1)
+detach(pAbp)
 
-set.seed(1)
-settingC.exon <- matrix(nrow=30, ncol=16)
-pp <- 1
-exon_length <- c()
-for(i in 1:5){
-  for(j in 1:3){
-    exon_length[pp] <- sample(seq(0.1,0.4,length=3), 1)
-    exon_sd <- rnorm(1, sd=exon_length[pp])
-    mu1 <- mu.produce.exp(ti1, exon_sd)
-    mu2 <- mu.produce.exp(ti2, exon_sd)
-    p1 <- nu/(mu1+nu)
-    p2 <- nu/(mu2+nu)
-    settingC.exon[(i-1)*3 + j, 1:8] <- rnbinom(8,nu,p1)
-    settingC.exon[(i-1)*3 + j, 9:16] <- rnbinom(8,nu,p2)
-    pp <- pp + 1
-  }
-}
-
-for(i in 6:10){
-  for(j in 1:3){
-    exon_length[pp] <- sample(seq(0.1,0.4,length=3), 1)
-    exon_sd <- rnorm(1, sd=exon_length[pp])
-    mu1 <- mu.produce.exp(ti1, exon_sd)
-    p1 <- nu/(mu1+nu)
-    settingC.exon[(i-1)*3 + j, 1:8] <- rnbinom(8,nu,p1)
-    settingC.exon[(i-1)*3 + j, 9:16] <- rnbinom(8,nu,p1)
-    pp <- pp + 1
-  }
-}
-
-gene.names <- paste("gene", rep(1:10, each=3), sep="")
-group.label <- c(rep(1,8), rep(2,8))
-
-##### Model fitting (If you want to run 'timeSeq' by yourself, just remove the 
-##### "## " from the head of two lines below.)
-## model.fit <- timeSeq(settingC.exon, group.label, gene.names, exon.length=exon_length, 
-## 	reads=NULL, n_cores = 2, offset=FALSE)
-
-###Load the object returned by timeSeq
-data(object_by_timeSeq)
-str(model.fit)
+##Gene level data (three replicates)
+data(simulate.dt)
+attach(simulate.dt)
+model.fit <- timeSeq(data.count, group.label, gene.names, reads, exon.level=FALSE, n.cores = 1)
+    
 }
 
 

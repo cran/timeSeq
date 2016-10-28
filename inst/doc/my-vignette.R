@@ -2,9 +2,10 @@
 #  rowSums(cpm(data)>100) >= 2
 
 ## ---- eval=FALSE, tidy=TRUE----------------------------------------------
-#  data(Idgf2)
-#  attach(Idgf2)
-#  model.fit <- timeSeq(data, group.label, gene.names, reads, exon.length,  exon.level = TRUE,  offset = T)
+#  data(pAbp)
+#  attach(pAbp)
+#  model.fit <- timeSeq(data.count, group.label, gene.names, reads, exon.length)
+#  detach(pAbp)
 #  
 
 ## ---- eval=FALSE, tidy=TRUE----------------------------------------------
@@ -13,16 +14,14 @@
 #  
 
 ## ---- eval=FALSE, tidy=TRUE----------------------------------------------
-#  timeSeq.plot(model.fit, 1)
-
-## ---- eval=FALSE, tidy=TRUE----------------------------------------------
-#  model.fit <- timeSeq(data, group.label, gene.names, reads, exon.length, exon.level = TRUE, p.values = T,  offset = T, iterations = 100)
-#  detach(Idgf2)
-
-## ---- eval=FALSE, tidy=TRUE----------------------------------------------
-#  data(object_by_timeSeq)
+#  data(simulate.dt)
+#  attach(simulate.dt)
+#  model.fit <- timeSeq(data.count, group.label, gene.names, reads, exon.level=FALSE)
 #  timeSeq.screeplot(model.fit, "lines")
 
 ## ----  eval=FALSE, tidy=TRUE---------------------------------------------
-#  timeSeq.heatmap(model.fit, 10)
+#  data(simulate.dt)
+#  attach(simulate.dt)
+#  model.fit <- timeSeq(data.count, group.label, gene.names, reads, exon.level=FALSE)
+#  timeSeq.heatmap(model.fit, n=10)
 

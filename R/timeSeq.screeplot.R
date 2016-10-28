@@ -1,5 +1,9 @@
+#   Scree Plot of Kullback Leibler Distance Ratios
+#   Author: Fan Gao
+#   Created 25 Seq 2015. Last modified 10 Oct 2016.
+
 timeSeq.screeplot = function(timeSeq.obj, type = c("barplot", "lines")) {
-	#n = min(n, length(obj$NPDE.ratio))
+	
 	graphics.off()
     obj_sorted = timeSeq.obj$sorted
     obj_sorted = obj_sorted$NPDE_list

@@ -24,6 +24,8 @@ A list with components
   \item{table2}{gene expression values for each gene, corresponding to PDE_list}
 }
 \references{
+Sun, Xiaoxiao, David Dalpiaz, Di Wu, Jun S. Liu, Wenxuan Zhong, and Ping Ma. "Statistical inference for time course RNA-Seq data using a negative binomial mixed-effect model." BMC Bioinformatics, 17(1):324, 2016.
+
 Chong Gu. Model diagnostics for smoothing spline ANOVA models. Canadian Journal of Statistics, 32(4):347-358, 2004.
 
 Chong Gu. Smoothing spline ANOVA models. Springer, second edition, 2013.

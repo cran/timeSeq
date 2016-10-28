@@ -1,3 +1,7 @@
+#   Heatmap of the Most Significant NDPE Genes
+#   Author: Fan Gao
+#   Created 25 Seq 2015. Last modified 10 Oct 2016.
+
 timeSeq.heatmap = function(timeSeq.obj, n) {
 	if (n < 1) {
 		cat("n must be a positive integer.\n")

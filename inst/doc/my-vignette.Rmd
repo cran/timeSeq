@@ -10,7 +10,7 @@ vignette: >
 ---
 
 
-This vignette describes version 1.0.1 of the timeSeq package.
+This vignette describes version 1.0.2 of the timeSeq package.
 
 ## Overview
 Accurate identification of differentially expressed (DE) genes in time course RNA-Seq data is crucial for understanding the transcriptional regulatory network. Since gene expression profiles have many different trajectories in time course RNA-Seq data, identification of DE genes is much more challenging compared to that in static data. In this package, we propose a negative binomial mixed- effect model (NBMM) to identify DE genes in time course RNA-Seq data. In the NBMM, gene expression is characterized by a fixed effect, and time dependency is described by random effects. The NBMM is very flexible and can be fitted to both unreplicated and replicated time course RNA-Seq data via a penalized likelihood method. By comparing gene expression profiles over time, we further classify the DE genes into two subtypes to enhance the understanding of expression dynamics. A significance test for detecting DE genes is derived using a Kullback-Leibler distance ratio. Additionally, a significance test for gene sets is developed using a gene set score.
@@ -48,9 +48,10 @@ The expression cutoff is 100 counts per million.
 ## Fitting the example data
 
 ```{r, eval=FALSE, tidy=TRUE}
-data(Idgf2)
-attach(Idgf2)
-model.fit <- timeSeq(data, group.label, gene.names, reads, exon.length,  exon.level = TRUE,  offset = T)
+data(pAbp)
+attach(pAbp)
+model.fit <- timeSeq(data.count, group.label, gene.names, reads, exon.length)
+detach(pAbp)
 
 ```
 
@@ -61,26 +62,14 @@ model.fit$NPDE.ratio
 model.fit$PDE.ratio
 
 ```
-To visualize the results of an analysis, 
+
+A bootstrapping  procedure can be used to get the p values.
+However, the procedure is computing intensive. In order to choose significant NPDE genes quickly, we can use the scree plot. 
 
 ```{r, eval=FALSE, tidy=TRUE}
-timeSeq.plot(model.fit, 1)
-```
-
-![Alt text](Idgf2.png)
-
-A permutation procedure can be used to get the p values. 
-
-```{r, eval=FALSE, tidy=TRUE}
-model.fit <- timeSeq(data, group.label, gene.names, reads, exon.length, exon.level = TRUE, p.values = T,  offset = T, iterations = 100)
-detach(Idgf2)
-```
-
-
-However, the permutation procedure is computing intensive. In order to choose significant NPDE genes quickly, we can use the scree plot. 
-
-```{r, eval=FALSE, tidy=TRUE}
-data(object_by_timeSeq)
+data(simulate.dt)
+attach(simulate.dt)
+model.fit <- timeSeq(data.count, group.label, gene.names, reads, exon.level=FALSE)
 timeSeq.screeplot(model.fit, "lines")
 ```
 ![Alt text](scree.png)
@@ -94,9 +83,14 @@ In this situation, we choose 0.7 as cutoff value to select the significant DE ge
 To explore the significant genes, it is often instructive to look at them as a heatmap.
 
 ```{r,  eval=FALSE, tidy=TRUE}
-timeSeq.heatmap(model.fit, 10)
+data(simulate.dt)
+attach(simulate.dt)
+model.fit <- timeSeq(data.count, group.label, gene.names, reads, exon.level=FALSE)
+timeSeq.heatmap(model.fit, n=10)
 ```
 ![Alt text](heatmap.png)
+
+
 
 ## References
 Graveley, B. R., Brooks, A. N., Carlson, J. W., Duff, M. O., Landolin, J. M., Yang, L., ... & Celniker, S. E. (2011). The developmental transcriptome of Drosophila melanogaster. Nature, 471(7339), 473-479.

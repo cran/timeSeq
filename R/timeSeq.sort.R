@@ -1,3 +1,7 @@
+# Sort NDPE and PDE Genes by Kullback Leibler Distance Ratios
+# Author: Fan Gao
+# Created 25 Seq 2015. Last modified 10 Oct 2016.
+
 timeSeq.sort = function(genenames, NPDE.ratio, PDE.ratio, table, count) {
 	
   Length = length(genenames)
