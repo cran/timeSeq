@@ -50,7 +50,7 @@ The expression cutoff is 100 counts per million.
 ```{r, eval=FALSE, tidy=TRUE}
 data(pAbp)
 attach(pAbp)
-model.fit <- timeSeq(data.count, group.label, gene.names, reads, exon.length)
+model.fit <- timeSeq(data.count, group.label, gene.names, exon.length)
 detach(pAbp)
 
 ```
@@ -69,7 +69,7 @@ However, the procedure is computing intensive. In order to choose significant NP
 ```{r, eval=FALSE, tidy=TRUE}
 data(simulate.dt)
 attach(simulate.dt)
-model.fit <- timeSeq(data.count, group.label, gene.names, reads, exon.level=FALSE)
+model.fit <- timeSeq(data.count, group.label, gene.names, exon.level=FALSE)
 timeSeq.screeplot(model.fit, "lines")
 ```
 ![Alt text](scree.png)
@@ -85,7 +85,7 @@ To explore the significant genes, it is often instructive to look at them as a h
 ```{r,  eval=FALSE, tidy=TRUE}
 data(simulate.dt)
 attach(simulate.dt)
-model.fit <- timeSeq(data.count, group.label, gene.names, reads, exon.level=FALSE)
+model.fit <- timeSeq(data.count, group.label, gene.names, exon.level=FALSE)
 timeSeq.heatmap(model.fit, n=10)
 ```
 ![Alt text](heatmap.png)

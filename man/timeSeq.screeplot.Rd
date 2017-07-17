@@ -30,7 +30,7 @@ Fan Gao and Xiaoxiao Sun
 
 data(simulate.dt)
 attach(simulate.dt)
-model.fit <- timeSeq(data.count, group.label, gene.names, reads, exon.level = FALSE,  n.cores = 1)
+model.fit <- timeSeq(data.count, group.label, gene.names, exon.level = FALSE)
 timeSeq.screeplot(model.fit, "lines")
 
 }

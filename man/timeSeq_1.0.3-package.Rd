@@ -1,6 +1,6 @@
-\name{timeSeq_1.0.2-package}
-\alias{timeSeq_1.0.2-package}
-\alias{timeSeq_1.0.2}
+\name{timeSeq_1.0.3-package}
+\alias{timeSeq_1.0.3-package}
+\alias{timeSeq_1.0.3}
 \docType{package}
 \title{
 Statistical Inference for Time Course RNA-Seq Data using a Negative Binomial Mixed-Effects Model
@@ -12,8 +12,8 @@ In this package, we propose a negative binomial mixed-effects (NBME) model to id
 \tabular{ll}{
 Package: \tab timeSeq\cr
 Type: \tab Package\cr
-Version: \tab 1.0.2\cr
-Date: \tab 2016-10-27\cr
+Version: \tab 1.0.3\cr
+Date: \tab 2017-7-17\cr
 License: \tab GPL-2 | GPL-3\cr
 }
 
