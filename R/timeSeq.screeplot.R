@@ -2,26 +2,44 @@
 #   Author: Fan Gao
 #   Created 25 Seq 2015. Last modified 10 Oct 2016.
 
-timeSeq.screeplot = function(timeSeq.obj, type = c("barplot", "lines")) {
-	
+timeSeq.screeplot <- function(timeSeq.obj,type=c("barplot","lines")) {
 	graphics.off()
-    obj_sorted = timeSeq.obj$sorted
-    obj_sorted = obj_sorted$NPDE_list
-    gene.length = sum(!is.na(obj_sorted[,2]))
-    gene.index = !(is.na(obj_sorted[,2]))
-    if (type == "barplot") {
-        obj_sorted$genenames = factor(obj_sorted$genenames, 
-                                      levels = unique( as.character(obj_sorted$genenames)))    
-        barchart(ratio ~ genenames, data = obj_sorted, 
-                 main = "Ratios of Genes", xlab = "Gene", ylab = "Ratio",
-                 col = "aliceblue")    
-    } else if (type == "lines") {
-        plot(x = 1 : gene.length, y = obj_sorted$ratio[gene.index],
-             type = "b", pch = 21, col = "red", xaxt = "n", lty = 2, 
-             main = "Ratios of Genes",  xlab = "Gene", ylab = "Ratio")    
-        axis(1, 1 : gene.length, obj_sorted$genenames[gene.index], col.axis = "blue")
-	} else {
-		cat("The type of plot must be bar plot or line graph.\n")
-		return(cat("ERROR!"))
-	} 
+    obj.sorted <- timeSeq.obj$sorted
+    obj.sorted <- obj.sorted$npde.list
+    gene.length <- sum(!is.na(obj.sorted[,2]))
+    gene.index <- !(is.na(obj.sorted[,2]))
+    if(timeSeq.obj$pvalue){
+        if (type=="barplot") {
+            obj.sorted$genenames <- factor(obj.sorted$genenames, 
+                                           levels=unique(as.character(obj.sorted$genenames)))    
+            barchart(pvalues~genenames,data=obj.sorted, 
+                     main="P-values of Genes",xlab="Genes",ylab="P-values",
+                     col = "aliceblue")    
+        } else if (type=="lines") {
+            plot(x=1:gene.length,y=obj.sorted$pvalues[gene.index],
+                 type="b",pch=21,col="red",xaxt="n",lty = 2, 
+                 main="P-values of Genes",xlab="Genes",ylab = "P-values")    
+            axis(1,1:gene.length,obj.sorted$genenames[gene.index],col.axis="blue")
+	    } else {
+		    cat("The type of plot must be bar plot or line graph.\n")
+		    return(cat("ERROR!"))
+	}
+    } else {
+        if (type=="barplot") {
+            obj.sorted$genenames <- factor(obj.sorted$genenames, 
+                                           levels=unique(as.character(obj.sorted$genenames)))    
+            barchart(ratios~genenames,data=obj.sorted, 
+                     main="Ratios of Genes",xlab="Genes",ylab="Ratios",
+                     col = "aliceblue")    
+        } else if (type=="lines") {
+            plot(x=1:gene.length,y=obj.sorted$ratios[gene.index],
+                 type="b",pch=21,col="red",xaxt="n",lty = 2, 
+                 main="Ratios of Genes",xlab="Genes",ylab = "Ratios")    
+            axis(1,1:gene.length,obj.sorted$genenames[gene.index],col.axis="blue")
+	    } else {
+		    cat("The type of plot must be bar plot or line graph.\n")
+		    return(cat("ERROR!"))
+	    }
+
+    }
 }

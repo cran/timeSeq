@@ -13,14 +13,15 @@ mixed-effects (NBME) model to identify both PDE and NPDE genes in
 time course RNA-seq data.
 }
 \usage{
-timeSeq(data.count, group.label, gene.names,exon.length = NULL, exon.level = TRUE)
+timeSeq(data.count,group.label,gene.names,exon.length=NULL,exon.level=FALSE,pvalue=TRUE)
 }
 \arguments{
-\item{data.count}{a n by p matrix of expression values.}
+\item{data.count}{a n by p matrix of expression values. Data should be appropriately normalized beforehand.}
 \item{group.label}{a vector indicating the experimental conditions of each time point.}
 \item{gene.names}{a vector containing all the gene names.}
 \item{exon.length}{a vector containing the length of exons, only used in exon level data.}
-\item{exon.level}{logical:indicating if this is an exon level dataset. Default is TRUE.}
+\item{exon.level}{logical:indicating if this is an exon level dataset. Default is FALSE.}
+\item{pvalue}{logical:indicating if p-values are returned. Default is TRUE.}
 }
 
 \details{Nonparallel differential expression(NPDE) genes 
@@ -28,20 +29,20 @@ timeSeq(data.count, group.label, gene.names,exon.length = NULL, exon.level = TRU
 
 \value{
 A list with components
-\item{sorted}{an object returned by NPDE.sort function. It contains sorted Kullback Leibler Ratios(KLRs) for identifying DE genes}
-\item{count}{the number of exons for each gene.}
-\item{NPDE.ratio}{the NPDE ratios.}
-\item{PDE.ratio}{the PDE ratios.}
+\item{sorted}{an object returned by timeSeq.sort function. It contains sorted Kullback Leibler Ratios(KLRs) or p-values for identifying DE genes.}
+\item{count}{the number of exons or replicates for each gene.}
+\item{NPDE}{the NPDE ratios or p-values.}
+\item{PDE}{the PDE ratios or p-values.}
 \item{genenames}{gene names.}
 \item{table}{gene expression values.}
 \item{data}{a n by p matrix of expression values.}
 \item{gene.names}{a vector including all the gene names.}
-\item{exon.length}{length of exons.}
 \item{group.label}{a vector indicating the experimental conditions of each time point.}
 \item{group.length}{the total number of time points.}
 \item{group1.length}{the number of time points of condition one.}
 \item{group2.length}{the number of time points of condition two.}
-\item{exon.level}{logical:indicating if this is an exon level dataset. Default is TRUE.}
+\item{exon.level}{logical:indicating if this is an exon level dataset. Default is FALSE.}
+\item{pvalue}{logical:indicating if p-values are returned. Default is TRUE.}
 }
 
 \references{
@@ -52,23 +53,31 @@ Chong Gu. Model diagnostics for smoothing spline ANOVA models. Canadian Journal 
 Chong Gu. Smoothing spline ANOVA models. Springer, second edition, 2013.
 
 Chong Gu and Ping Ma. Optimal smoothing in nonparametric mixed-effect models. Annals of Statistics, 1357-1379, 2005.
+
+Wood (2001) mgcv:GAMs and Generalized Ridge Regression for R. R News 1(2):20-25
+
 }
 
 
 \author{Fan Gao and Xiaoxiao Sun}
 
 \examples{
-##Exon level data
+####Data should be appropriately normalized beforehand####
+
+##Exon level data (The p-values calculation is not supported)
 data(pAbp)
 attach(pAbp)
-model.fit <- timeSeq(data.count, group.label, gene.names, exon.length)
+model.fit <- timeSeq(data.count,group.label,gene.names,exon.length,exon.level=TRUE,pvalue=FALSE)
+#NPDE genes have large KLRs
+model.fit$NPDE
 detach(pAbp)
 
 ##Gene level data (three replicates)
 data(simulate.dt)
 attach(simulate.dt)
-model.fit <- timeSeq(data.count, group.label, gene.names, exon.level=FALSE)
-    
+model.fit <- timeSeq(data.count,group.label,gene.names,exon.level=FALSE,pvalue=TRUE)
+#p-values
+model.fit$NPDE
 }
 
 

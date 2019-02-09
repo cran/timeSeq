@@ -4,10 +4,10 @@
 Heatmap of the Most Significant NDPE Genes
 }
 \description{
-Plots the heatmap for the significant NDPE genes.
+Heatmap for the most significant NDPE genes.
 }
 \usage{
-timeSeq.heatmap(timeSeq.obj, n)
+timeSeq.heatmap(timeSeq.obj,n)
 }
 \arguments{
 \item{timeSeq.obj}{an object returned by timeSeq function}
@@ -21,6 +21,8 @@ Chong Gu. Model diagnostics for smoothing spline ANOVA models. Canadian Journal 
 Chong Gu. Smoothing spline ANOVA models. Springer, second edition, 2013.
 
 Chong Gu and Ping Ma. Optimal smoothing in nonparametric mixed-effect models. Annals of Statistics, pages 1357-1379, 2005a.
+
+Wood (2001) mgcv:GAMs and Generalized Ridge Regression for R. R News 1(2):20-25
 }
 \author{
 Fan Gao and Xiaoxiao Sun
@@ -30,8 +32,7 @@ Fan Gao and Xiaoxiao Sun
 
 data(simulate.dt)
 attach(simulate.dt)
-model.fit <- timeSeq(data.count, group.label, gene.names, exon.level = FALSE)
-timeSeq.heatmap(model.fit, n = 10)
-
+model.fit <- timeSeq(data.count,group.label,gene.names,exon.level=FALSE,pvalue=TRUE)
+timeSeq.heatmap(model.fit,n=10)
 }
 

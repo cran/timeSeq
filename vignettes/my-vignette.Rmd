@@ -10,7 +10,7 @@ vignette: >
 ---
 
 
-This vignette describes version 1.0.3 of the timeSeq package.
+This vignette describes version 1.0.4 of the timeSeq package.
 
 ## Overview
 Accurate identification of differentially expressed (DE) genes in time course RNA-Seq data is crucial for understanding the transcriptional regulatory network. Since gene expression profiles have many different trajectories in time course RNA-Seq data, identification of DE genes is much more challenging compared to that in static data. In this package, we propose a negative binomial mixed- effect model (NBMM) to identify DE genes in time course RNA-Seq data. In the NBMM, gene expression is characterized by a fixed effect, and time dependency is described by random effects. The NBMM is very flexible and can be fitted to both unreplicated and replicated time course RNA-Seq data via a penalized likelihood method. By comparing gene expression profiles over time, we further classify the DE genes into two subtypes to enhance the understanding of expression dynamics. A significance test for detecting DE genes is derived using a Kullback-Leibler distance ratio. Additionally, a significance test for gene sets is developed using a gene set score.
@@ -50,7 +50,7 @@ The expression cutoff is 100 counts per million.
 ```{r, eval=FALSE, tidy=TRUE}
 data(pAbp)
 attach(pAbp)
-model.fit <- timeSeq(data.count, group.label, gene.names, exon.length, exon.level=TRUE)
+model.fit <- timeSeq(data.count,group.label,gene.names,exon.length,exon.level=TRUE,pvalue=FALSE)
 detach(pAbp)
 
 ```
@@ -58,18 +58,18 @@ detach(pAbp)
 We can access the results of model by doing,
 
 ```{r, eval=FALSE, tidy=TRUE}
-model.fit$NPDE.ratio
-model.fit$PDE.ratio
+model.fit$NPDE
+model.fit$PDE
 
 ```
 
-A bootstrapping  procedure can be used to get the p values.
+A permutation procedure can be used to get the p values.
 However, the procedure is computing intensive. In order to choose significant NPDE genes quickly, we can use the scree plot. 
 
 ```{r, eval=FALSE, tidy=TRUE}
 data(simulate.dt)
 attach(simulate.dt)
-model.fit <- timeSeq(data.count, group.label, gene.names, exon.level=FALSE)
+model.fit <- timeSeq(data.count,group.label,gene.names,exon.level=FALSE,pvalue=FALSE)
 timeSeq.screeplot(model.fit, "lines")
 ```
 ![Alt text](scree.png)
@@ -85,8 +85,8 @@ To explore the significant genes, it is often instructive to look at them as a h
 ```{r,  eval=FALSE, tidy=TRUE}
 data(simulate.dt)
 attach(simulate.dt)
-model.fit <- timeSeq(data.count, group.label, gene.names, reads, exon.level=FALSE)
-timeSeq.heatmap(model.fit, n=10)
+model.fit <- timeSeq(data.count,group.label,gene.names,exon.level=FALSE,pvalue=FALSE)
+timeSeq.heatmap(model.fit,n=10)
 ```
 ![Alt text](heatmap.png)
 
